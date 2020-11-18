@@ -78,8 +78,11 @@ steps:
   - task: CmdLine@2
     inputs:
       script: |
+        set -x -e
+        FILE=(Build.BinariesDirectory)/bicep
         if [ ! -f "$FILE" ]; then
           echo "File $FILE not found!"
+          cd $(Build.BinariesDirectory)
           ls -la
         fi
         # Verify you can now access the 'bicep' command
