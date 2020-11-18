@@ -74,3 +74,14 @@ steps:
         # Verify you can now access the 'bicep' command
         $(Build.BinariesDirectory)/bicep --help
     displayName: "Download Bicep binary"
+
+  - task: CmdLine@2
+    inputs:
+      script: |
+        if [ ! -f "$FILE" ]; then
+          echo "File $FILE not found!"
+          ls -la
+        fi
+        # Verify you can now access the 'bicep' command
+        $(Build.BinariesDirectory)/bicep --help
+    displayName: "verify bicep is available for subsequent tasks"
