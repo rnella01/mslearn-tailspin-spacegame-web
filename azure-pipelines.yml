@@ -61,13 +61,16 @@ steps:
     inputs:
       script: |
         set -x -e
-        cd $(Build.BinariesDirectory)
-        # Fetch the latest Bicep CLI binary
-        curl -Lo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
-        # Mark it as executable
-        chmod +x ./bicep
-        ls -la
+        FILE=(Build.BinariesDirectory)/bicep
+        if [ ! -f "$FILE" ]; then
+          echo "File $FILE not found!"
+          cd $(Build.BinariesDirectory)
+          # Fetch the latest Bicep CLI binary
+          curl -Lo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+          # Mark it as executable
+          chmod +x ./bicep
+          ls -la
+        fi
         # Verify you can now access the 'bicep' command
         $(Build.BinariesDirectory)/bicep --help
-      failOnStderr: true
     displayName: "Download Bicep binary"
