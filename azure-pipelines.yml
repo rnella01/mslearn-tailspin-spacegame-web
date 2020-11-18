@@ -57,3 +57,17 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: "Publish Artifact: drop"
     condition: succeeded()
+  - task: CmdLine@2
+    inputs:
+      script: |
+        set -x -e
+        cd $(Build.BinariesDirectory)
+        # Fetch the latest Bicep CLI binary
+        curl -Lo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+        # Mark it as executable
+        chmod +x ./bicep
+        ls -la
+        # Verify you can now access the 'bicep' command
+        bicep --help
+      failOnStderr: true
+    displayName: "Download Bicep binary"
