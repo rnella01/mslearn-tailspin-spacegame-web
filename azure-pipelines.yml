@@ -61,7 +61,7 @@ steps:
     inputs:
       script: |
         set -x -e
-        FILE=(Build.BinariesDirectory)/bicep
+        FILE=$(Build.BinariesDirectory)/bicep
         if [ ! -f "$FILE" ]; then
           echo "File $FILE not found!"
           cd $(Build.BinariesDirectory)
@@ -79,7 +79,7 @@ steps:
     inputs:
       script: |
         set -x -e
-        FILE=(Build.BinariesDirectory)/bicep
+        FILE=$(Build.BinariesDirectory)/bicep
         if [ ! -f "$FILE" ]; then
           echo "File $FILE not found!"
           cd $(Build.BinariesDirectory)
